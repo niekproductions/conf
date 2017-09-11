@@ -4,8 +4,14 @@ UPLOAD_DIR="https://domain.name/"
 inotifywait -m /home/niek/Pictures/Screenshots -e create -e moved_to |
 while read path action file; do
 	FULLPATH=$path$file
-	sleep 1
+	sleep 2
 	`sshpass -p "password" scp $FULLPATH user@host:path/`
+	rc=$?
+
+	if [ $rc != 0 ]; then
+		notify-send -u low -t 2000 "Failed to upload screenshot!"
+		return
+	fi
 
 	FILENAME=${FULLPATH##*/}
 	echo -n $UPLOAD_DIR$FILENAME | xclip -sel clip
