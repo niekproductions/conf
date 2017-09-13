@@ -1,0 +1,6 @@
+[Nemo Action]
+Name=Upload
+Comment=Send to kartoffelcube
+Exec=/home/niek/bin/upload.sh %F
+Selection=s
+Extensions=any;
